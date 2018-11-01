@@ -6,8 +6,13 @@
     <groupId>com.wang</groupId>
     <artifactId>genealogy</artifactId>
     <version>1.0.0</version>
-    <packaging>jar</packaging>
-
+    <modules>
+        <module>genealogy-dao</module>
+        <module>genealogy-web</module>
+        <module>genealogy-core</module>
+        <module>genealogy-common</module>
+    </modules>
+    <packaging>pom</packaging>
     <name>genealogy</name>
     <description>This is a genealogy system!</description>
 
@@ -15,21 +20,41 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <genealogy.version>1.0.0</genealogy.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.wang</groupId>
+                <artifactId>genealogy-common</artifactId>
+                <version>${genealogy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.wang</groupId>
+                <artifactId>genealogy-dao</artifactId>
+                <version>${genealogy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.wang</groupId>
+                <artifactId>genealogy-core</artifactId>
+                <version>${genealogy.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -40,16 +65,22 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
 
 </project>
