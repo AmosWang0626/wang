@@ -1,20 +1,23 @@
 package com.wang.genealogy.entity;
 
 import com.wang.genealogy.enums.GenderEnum;
-import com.wang.genealogy.enums.GradeEnum;
+import com.wang.genealogy.enums.PersonMarkEnum;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author daoyuan
  */
 @Data
 public class GenealogyEntity {
+
     /**
-     * id
+     * ID
      */
-    private Long id;
+    private String id;
+    /**
+     * 关联ID
+     */
+    private String relationId;
     /**
      * 名字
      */
@@ -26,7 +29,7 @@ public class GenealogyEntity {
     /**
      * 去世时间
      */
-    private String byeBirth;
+    private String passBirth;
     /**
      * 性别
      */
@@ -34,28 +37,18 @@ public class GenealogyEntity {
     /**
      * 老几
      */
-    private GradeEnum grade;
-    /**
-     * 孩子
-     */
-    private List<GenealogyEntity> children;
+    private PersonMarkEnum personMark;
 
     public GenealogyEntity() {
     }
 
-    public GenealogyEntity(String name, String birth, GenderEnum gender, GradeEnum grade) {
-        this.id = System.currentTimeMillis();
-        this.name = name;
-        this.birth = birth;
-        this.gender = gender;
-        this.grade = grade;
-    }
-
-    public GenealogyEntity(Long id, String name, String birth, GenderEnum gender, GradeEnum grade) {
+    public GenealogyEntity(String id, String relationId, String name, String birth, String passBirth, GenderEnum gender, PersonMarkEnum personMark) {
         this.id = id;
+        this.relationId = relationId;
         this.name = name;
         this.birth = birth;
+        this.passBirth = passBirth;
         this.gender = gender;
-        this.grade = grade;
+        this.personMark = personMark;
     }
 }
