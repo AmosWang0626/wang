@@ -10,12 +10,8 @@ public enum PersonMarkEnum {
      */
     ROOT("根"),
     SPOUSE("配偶"),
-    CHILDREN_ONE("大孩子"),
-    CHILDREN_TWO("二孩子"),
-    CHILDREN_THREE("三孩子"),
-    CHILDREN_FOUR("四孩子"),
-    CHILDREN_FIVE("五孩子"),
-    CHILDREN_SIX("六孩子"),
+    SON("儿子"),
+    DAUGHTER("女儿"),
     ;
 
     private final String desc;

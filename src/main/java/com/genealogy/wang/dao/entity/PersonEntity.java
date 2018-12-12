@@ -2,7 +2,6 @@ package com.genealogy.wang.dao.entity;
 
 import com.genealogy.wang.common.enums.GenderEnum;
 import com.genealogy.wang.common.enums.PersonMarkEnum;
-import com.genealogy.wang.common.enums.SeniorityEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,36 +19,39 @@ public class PersonEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     /**
+     * 名字
+     */
+    private String name;
+    /**
      * 关联ID
      */
     private Long relationId;
     /**
-     * 名字
+     * 身份
      */
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private PersonMarkEnum personMark;
+    /**
+     * 辈分
+     */
+    private Integer seniority;
+    /**
+     * 排行
+     */
+    private Integer ranking;
     /**
      * 性别
      */
     @Enumerated(EnumType.STRING)
     private GenderEnum gender;
     /**
-     * 辈分
-     */
-    @Enumerated(EnumType.STRING)
-    private SeniorityEnum seniority;
-    /**
-     * 出生年月
+     * 出生年月日
      */
     private String birth;
     /**
-     * 寿终年月
+     * 寿终年月日
      */
-    private String passBirth;
-    /**
-     * PERSON标识
-     */
-    @Enumerated(EnumType.STRING)
-    private PersonMarkEnum personMark;
+    private String elapse;
     /**
      * 创建时间
      */
@@ -58,7 +60,7 @@ public class PersonEntity {
     public PersonEntity() {
     }
 
-    public PersonEntity(String name, GenderEnum gender, SeniorityEnum seniority, PersonMarkEnum personMark) {
+    public PersonEntity(String name, GenderEnum gender, Integer seniority, PersonMarkEnum personMark) {
         this.name = name;
         this.gender = gender;
         this.seniority = seniority;

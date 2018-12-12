@@ -1,9 +1,8 @@
 package com.genealogy.wang;
 
-import com.genealogy.wang.dao.entity.PersonEntity;
 import com.genealogy.wang.common.enums.GenderEnum;
 import com.genealogy.wang.common.enums.PersonMarkEnum;
-import com.genealogy.wang.common.enums.SeniorityEnum;
+import com.genealogy.wang.dao.entity.PersonEntity;
 import com.genealogy.wang.dao.mapper.PersonMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +20,7 @@ public class ApplicationTests {
 
     @Test
     public void save() {
-        PersonEntity entity = new PersonEntity("王其培", GenderEnum.MEN, SeniorityEnum.ONE, PersonMarkEnum.ROOT);
+        PersonEntity entity = new PersonEntity("王其培", GenderEnum.MEN, 1, PersonMarkEnum.ROOT);
         personMapper.save(entity);
     }
 

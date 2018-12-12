@@ -7,9 +7,9 @@ package com.genealogy.wang.common.enums;
  * @author Daoyuan
  * @date 2018/11/1
  */
-public enum SeniorityEnum {
+public enum NumberEnum {
     /**
-     * 辈分
+     * 数字枚举
      */
     ONE(1),
     TWO(2),
@@ -29,7 +29,7 @@ public enum SeniorityEnum {
 
     private final Integer desc;
 
-    SeniorityEnum(Integer desc) {
+    NumberEnum(Integer desc) {
         this.desc = desc;
     }
 
