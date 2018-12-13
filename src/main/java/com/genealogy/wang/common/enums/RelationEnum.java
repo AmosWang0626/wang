@@ -1,9 +1,11 @@
 package com.genealogy.wang.common.enums;
 
 /**
+ * 所有关系
+ *
  * @author daoyuan
  */
-public enum PersonMarkEnum {
+public enum RelationEnum {
 
     /**
      * 标识
@@ -16,7 +18,7 @@ public enum PersonMarkEnum {
 
     private final String desc;
 
-    PersonMarkEnum(String desc) {
+    RelationEnum(String desc) {
         this.desc = desc;
     }
 

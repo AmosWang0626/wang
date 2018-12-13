@@ -1,7 +1,7 @@
 package com.genealogy.wang.dao.entity;
 
 import com.genealogy.wang.common.enums.GenderEnum;
-import com.genealogy.wang.common.enums.PersonMarkEnum;
+import com.genealogy.wang.common.enums.RelationEnum;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,8 +11,7 @@ import java.util.Date;
  * @author daoyuan
  */
 @Data
-@Entity
-@Table(name = "person")
+@Entity(name = "person")
 public class PersonEntity {
 
     @Id
@@ -30,7 +29,7 @@ public class PersonEntity {
      * 身份
      */
     @Enumerated(EnumType.STRING)
-    private PersonMarkEnum personMark;
+    private RelationEnum relation;
     /**
      * 辈分
      */
@@ -47,7 +46,7 @@ public class PersonEntity {
     /**
      * 出生年月日
      */
-    private String birth;
+    private String born;
     /**
      * 寿终年月日
      */
@@ -60,10 +59,10 @@ public class PersonEntity {
     public PersonEntity() {
     }
 
-    public PersonEntity(String name, GenderEnum gender, Integer seniority, PersonMarkEnum personMark) {
+    public PersonEntity(String name, GenderEnum gender, Integer seniority, RelationEnum relation) {
         this.name = name;
         this.gender = gender;
         this.seniority = seniority;
-        this.personMark = personMark;
+        this.relation = relation;
     }
 }

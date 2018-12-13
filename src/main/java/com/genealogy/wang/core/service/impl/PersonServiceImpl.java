@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * PROJECT: genealogy
@@ -38,16 +37,6 @@ public class PersonServiceImpl implements PersonService {
         }
 
         return personMapper.save(personEntity);
-    }
-
-    @Override
-    public List<PersonEntity> findBySeniority(Integer seniority) {
-        return null;
-    }
-
-    @Override
-    public PersonEntity findByName(String name) {
-        return null;
     }
 
 }
