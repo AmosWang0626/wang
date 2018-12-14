@@ -38,9 +38,4 @@ public class PersonController {
         return personBusiness.findByName(name);
     }
 
-    @GetMapping("allRelation")
-    public GenericResponse allRelation() {
-        return personBusiness.allRelation();
-    }
-
 }

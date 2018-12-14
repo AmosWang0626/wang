@@ -1,10 +1,7 @@
 package com.genealogy.wang.core.business;
 
 import com.genealogy.wang.common.response.GenericResponse;
-import com.genealogy.wang.common.util.Mapping;
 import com.genealogy.wang.dao.entity.PersonEntity;
-
-import java.util.List;
 
 /**
  * PROJECT: wang
@@ -39,10 +36,4 @@ public interface PersonBusiness {
      */
     GenericResponse findByName(String name);
 
-    /**
-     * 所有关系
-     *
-     * @return 通用response
-     */
-    GenericResponse<List<Mapping>> allRelation();
 }

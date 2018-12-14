@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IM 登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/iview.css"/>
+    <script type="text/javascript" src="/static/vue.min.js"></script>
+    <script type="text/javascript" src="/static/iview.min.js"></script>
+    <script type="text/javascript" src="/static/vue-router.js"></script>
+</head>
+<body>
+<div id="app" style="text-align: center">
+    <div style="width: 300px; border-radius: 3px 3px 0 0; text-align: center">
+        <h1 style="width: 300px; margin: 10px; text-align: center;">{{ title }}</h1>
+        <i-input v-model="account" size="large" style="width: 300px; margin: 10px" placeholder="请输入账号"></i-input>
+        <i-input v-model="password" size="large" style="width: 300px; margin: 10px" placeholder="请输入密码"></i-input>
+        <br>
+        <br>
+        <i-button type="primary" v-on:click="login">登录</i-button>
+        <i-button type="warning" v-on:click="reset" style="margin-left: 8px">重置</i-button>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'IM 登录',
+            account: null,
+            password: null
+        },
+        methods: {
+            login() {
+                console.info(this.account, this.password);
+                location.href = '/login/qq/sign/' + this.account + '/' + this.password;
+            },
+            reset() {
+                this.account = null;
+                this.password = null;
+            }
+        }
+    });
+</script>
+</body>
+</html>

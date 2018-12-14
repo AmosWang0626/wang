@@ -4,7 +4,6 @@ import com.genealogy.wang.common.enums.GenderEnum;
 import com.genealogy.wang.common.enums.RelationEnum;
 import com.genealogy.wang.common.response.GenericResponse;
 import com.genealogy.wang.common.util.CheckUtil;
-import com.genealogy.wang.common.util.Mapping;
 import com.genealogy.wang.core.business.PersonBusiness;
 import com.genealogy.wang.core.service.PersonService;
 import com.genealogy.wang.dao.entity.PersonEntity;
@@ -14,9 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * PROJECT: wang
@@ -74,12 +71,4 @@ public class PersonBusinessImpl implements PersonBusiness {
         return new GenericResponse<>(personMapper.findByNameRegexp(name));
     }
 
-    @Override
-    public GenericResponse<List<Mapping>> allRelation() {
-        List<Mapping> list = new ArrayList<>();
-        for (RelationEnum relation : RelationEnum.values()) {
-            list.add(new Mapping(relation.getKey(), relation.getDesc()));
-        }
-        return new GenericResponse<>(list);
-    }
 }
