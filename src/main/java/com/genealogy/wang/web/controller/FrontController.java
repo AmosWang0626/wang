@@ -31,9 +31,9 @@ public class FrontController {
     @GetMapping("allRelation")
     @ResponseBody
     public GenericResponse allRelation() {
-        List<Mapping> list = new ArrayList<>();
+        List<Mapping<String, String>> list = new ArrayList<>();
         for (RelationEnum relation : RelationEnum.values()) {
-            list.add(new Mapping(relation.getKey(), relation.getDesc()));
+            list.add(new Mapping<>(relation.getKey(), relation.getDesc()));
         }
         return new GenericResponse<>(list);
     }
@@ -41,9 +41,9 @@ public class FrontController {
     @GetMapping("allGender")
     @ResponseBody
     public GenericResponse allGender() {
-        List<Mapping> list = new ArrayList<>();
+        List<Mapping<String, String>> list = new ArrayList<>();
         for (GenderEnum relation : GenderEnum.values()) {
-            list.add(new Mapping(relation.getKey(), relation.getDesc()));
+            list.add(new Mapping<>(relation.getKey(), relation.getDesc()));
         }
         return new GenericResponse<>(list);
     }

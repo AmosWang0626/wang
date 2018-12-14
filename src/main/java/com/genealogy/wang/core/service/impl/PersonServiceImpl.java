@@ -1,9 +1,9 @@
 package com.genealogy.wang.core.service.impl;
 
-import com.genealogy.wang.common.util.CheckUtil;
 import com.genealogy.wang.core.service.PersonService;
 import com.genealogy.wang.dao.entity.PersonEntity;
 import com.genealogy.wang.dao.mapper.PersonMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonEntity addPerson(PersonEntity personEntity) {
-        if (CheckUtil.blank(personEntity.getName())) {
+        if (StringUtils.isBlank(personEntity.getName())) {
             LOGGER.error("信息错误: 名字不能为 null");
             return null;
         }

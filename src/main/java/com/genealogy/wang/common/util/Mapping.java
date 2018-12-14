@@ -12,14 +12,14 @@ import java.io.Serializable;
  * @date 2018/12/13
  */
 @Data
-public class Mapping implements Serializable {
+public class Mapping<K, V> implements Serializable {
 
     private static final long serialVersionUID = 1331598500191947810L;
 
-    private String key;
-    private String value;
+    private K key;
+    private V value;
 
-    public Mapping(String key, String value) {
+    public Mapping(K key, V value) {
         this.key = key;
         this.value = value;
     }

@@ -13,7 +13,7 @@
 <body>
 <div id="app" style="display: flex; justify-content: center;">
     <i-form ref="familyAddForm" :model="familyAddForm" :rules="familyAddRule" :label-width="60"
-            style="width: 300px; margin: 100px;">
+            style="width: 300px; margin: 50px;">
         <form-item><h1 style="text-align: center">{{ title }}</h1></form-item>
         <form-item label="名字" prop="name">
             <i-input v-model="familyAddForm.name" placeholder="请输入名字" width="300px"></i-input>
@@ -26,10 +26,19 @@
             </i-select>
         </form-item>
         <form-item label="辈分" prop="seniority">
-            <input-number v-model="familyAddForm.seniority" :editable="false" :min="1" width="300px"></input-number>
+            <input-number v-model="familyAddForm.seniority"
+                          v-on:on-change="relationPerson" :editable="false" :min="1" width="300px">
+            </input-number>
+        </form-item>
+        <form-item label="关联" prop="relationId">
+            <i-select v-model="familyAddForm.relationId" placeholder="请输入关联人名字" width="300px">
+                <i-option v-for="item in initData.relationFamily"
+                          :value="item.key" :key="item.key">{{ item.value }}
+                </i-option>
+            </i-select>
         </form-item>
         <form-item label="关系" prop="relation">
-            <i-select v-model="familyAddForm.relation" placeholder="请输入关系" width="300px">
+            <i-select v-model="familyAddForm.relation" placeholder="请输入与关联人关系" width="300px">
                 <i-option v-for="item in initData.relations"
                           :value="item.key" :key="item.key">{{ item.value }}
                 </i-option>
@@ -48,12 +57,14 @@
             title: '信息录入',
             initData: {
                 genders: [],
-                relations: []
+                relations: [],
+                relationFamily: []
             },
             familyAddForm: {
                 name: null,
                 gender: null,
                 relation: null,
+                relationId: null,
                 seniority: 1
             },
             familyAddRule: {
@@ -86,6 +97,14 @@
                         trigger: 'blur'
                     }
                 ],
+                relationId: [
+                    {
+                        required: true,
+                        type: 'number',
+                        message: '关联人名字不能为空!',
+                        trigger: 'blur'
+                    }
+                ],
             }
         },
         methods: {
@@ -101,6 +120,13 @@
             },
             reset() {
                 this.$refs.familyAddForm.resetFields();
+            },
+            relationPerson(seniority) {
+                this.familyAddForm.relationId = null;
+                let allGender = get({url: '/wang/findBySeniority/' + seniority});
+                allGender.then(data => {
+                    this.initData.relationFamily = data;
+                });
             }
         },
         beforeMount: function () {
