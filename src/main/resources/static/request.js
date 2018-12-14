@@ -33,13 +33,7 @@ const httpRequest = ({method = 'get', url = '', data = null, params = null}) => 
  * @returns success data
  */
 function get({url, params = null}) {
-    return httpRequest({method: 'get', url: url, params: params}).then(callback => {
-        if (callback.flag === 'success') {
-            return callback.data;
-        } else {
-            console.error(callback.message);
-        }
-    });
+    return httpRequest({method: 'get', url: url, params: params});
 }
 
 /**
@@ -50,11 +44,5 @@ function get({url, params = null}) {
  * @returns success data
  */
 function post({url, data = null}) {
-    httpRequest({method: 'post', url: url, data: data}).then(callback => {
-        if (callback.flag === 'success') {
-            return callback.data;
-        } else {
-            console.error(callback.message);
-        }
-    });
+    return httpRequest({method: 'post', url: url, data: data});
 }

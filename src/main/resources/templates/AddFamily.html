@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="app" style="display: flex; justify-content: center;">
-    <i-form ref="familyAddForm" :model="familyAddForm" :rules="familyAddRule" :label-width="60"
+    <i-form ref="familyAddForm" :model="familyAddForm" :rules="familyAddRule" :label-width="100"
             style="width: 300px; margin: 50px;">
         <form-item><h1 style="text-align: center">{{ title }}</h1></form-item>
         <form-item label="名字" prop="name">
@@ -25,24 +25,34 @@
                 </i-option>
             </i-select>
         </form-item>
-        <form-item label="辈分" prop="seniority">
-            <input-number v-model="familyAddForm.seniority"
-                          v-on:on-change="relationPerson" :editable="false" :min="1" width="300px">
+        <form-item label="本人辈分" prop="seniority">
+            <input-number v-model="familyAddForm.seniority" :editable="false" :min="1" width="300px">
             </input-number>
         </form-item>
-        <form-item label="关联" prop="relationId">
+        <form-item label="关联人辈分">
+            <input-number v-on:on-change="relationPerson" :editable="false" :min="1" width="300px"></input-number>
+        </form-item>
+        <form-item label="关联人名字" prop="relationId">
             <i-select v-model="familyAddForm.relationId" placeholder="请输入关联人名字" width="300px">
                 <i-option v-for="item in initData.relationFamily"
                           :value="item.key" :key="item.key">{{ item.value }}
                 </i-option>
             </i-select>
         </form-item>
-        <form-item label="关系" prop="relation">
+        <form-item label="关联关系" prop="relation">
             <i-select v-model="familyAddForm.relation" placeholder="请输入与关联人关系" width="300px">
                 <i-option v-for="item in initData.relations"
                           :value="item.key" :key="item.key">{{ item.value }}
                 </i-option>
             </i-select>
+        </form-item>
+        <form-item label="排行">
+            <input-number v-model="familyAddForm.ranking" :editable="false" :min="1" width="300px"></input-number>
+        </form-item>
+        <form-item label="生日">
+            <date-picker v-model="familyAddForm.born" type="date" style="width: 200px"
+                         format="yyyy年MM月dd日" placeholder="可输入【例如：19960511】">
+            </date-picker>
         </form-item>
         <form-item style="text-align: center">
             <i-button type="primary" v-on:click="submit">添加</i-button>
@@ -65,7 +75,9 @@
                 gender: null,
                 relation: null,
                 relationId: null,
-                seniority: 1
+                seniority: 1,
+                ranking: 1,
+                born: null
             },
             familyAddRule: {
                 name: [
@@ -111,8 +123,13 @@
             submit() {
                 this.$refs.familyAddForm.validate((valid) => {
                     if (valid) {
-                        console.info(JSON.stringify("commit data " + JSON.stringify(this.familyAddForm)));
-                        this.$Message.success('添加成功!~~~');
+                        post({url: '/wang/add', data: this.familyAddForm}).then(callback => {
+                            if (callback.flag === 'success') {
+                                this.$Message.success('添加成功!~~~');
+                            } else {
+                                this.$Message.error(callback.message);
+                            }
+                        });
                     } else {
                         this.$Message.error('请先确认输入信息格式~~~');
                     }
@@ -123,21 +140,32 @@
             },
             relationPerson(seniority) {
                 this.familyAddForm.relationId = null;
-                let allGender = get({url: '/wang/findBySeniority/' + seniority});
-                allGender.then(data => {
-                    this.initData.relationFamily = data;
+                get({url: '/wang/findBySeniority/' + seniority}).then(callback => {
+                    if (callback.flag === 'success') {
+                        console.info('seniority ' + seniority + JSON.stringify(callback.data));
+                        this.initData.relationFamily = callback.data;
+                    } else {
+                        this.$Message.error(callback.message);
+                    }
                 });
             }
         },
         beforeMount: function () {
-            let allGender = get({url: '/front/allGender'});
-            allGender.then(data => {
-                this.initData.genders = data;
+            get({url: '/front/allGender'}).then(callback => {
+                if (callback.flag === 'success') {
+                    this.initData.genders = callback.data;
+                } else {
+                    this.$Message.error(callback.message);
+                }
             });
-            let allRelation = get({url: '/front/allRelation'});
-            allRelation.then(data => {
-                this.initData.relations = data;
+            get({url: '/front/allRelation'}).then(callback => {
+                if (callback.flag === 'success') {
+                    this.initData.relations = callback.data;
+                } else {
+                    this.$Message.error(callback.message);
+                }
             });
+            this.relationPerson(1);
         }
     });
 </script>

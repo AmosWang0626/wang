@@ -46,7 +46,7 @@ public class PersonEntity {
     /**
      * 出生年月日
      */
-    private String born;
+    private Date born;
     /**
      * 寿终年月日
      */
