@@ -1,32 +1,35 @@
 package com.genealogy.wang;
 
-import com.genealogy.wang.common.enums.GenderEnum;
-import com.genealogy.wang.common.enums.RelationEnum;
-import com.genealogy.wang.dao.entity.PersonEntity;
-import com.genealogy.wang.dao.mapper.PersonMapper;
+import com.genealogy.wang.dao.entity.FamilyEntity;
+import com.genealogy.wang.dao.mapper.FamilyMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ApplicationTests {
 
     @Resource
-    private PersonMapper personMapper;
-
-    @Test
-    public void save() {
-        PersonEntity entity = new PersonEntity("王其培", GenderEnum.MEN, 1, RelationEnum.ROOT);
-        personMapper.save(entity);
-    }
+    private FamilyMapper familyMapper;
 
     @Test
     public void findById() {
-        System.out.println(personMapper.findById(3L));
+        System.out.println(familyMapper.findById(3L));
+    }
+
+    @Test
+    public void findByRelationId() {
+        List<FamilyEntity> allByRelationId = familyMapper.findAllByRelationId(1L);
+        StringBuilder sb = new StringBuilder();
+        allByRelationId.forEach(familyEntity ->
+                sb.append("名字：").append(familyEntity.getName())
+                        .append("， 排行：").append(familyEntity.getRanking()).append("\n"));
+        System.out.println(sb.toString());
     }
 
 }

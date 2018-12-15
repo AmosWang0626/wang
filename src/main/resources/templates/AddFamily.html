@@ -46,7 +46,7 @@
                 </i-option>
             </i-select>
         </form-item>
-        <form-item label="排行">
+        <form-item label="辈分中排行">
             <input-number v-model="familyAddForm.ranking" :editable="false" :min="1" width="300px"></input-number>
         </form-item>
         <form-item label="生日">
@@ -70,6 +70,8 @@
                 relations: [],
                 relationFamily: []
             },
+            /* relationId 是否可为null [default: true] */
+            checkRelationId: true,
             familyAddForm: {
                 name: null,
                 gender: null,
@@ -121,6 +123,9 @@
         },
         methods: {
             submit() {
+                if (this.familyAddForm.relation === 'ROOT') {
+                    this.familyAddRule.relationId[0].required = false;
+                }
                 this.$refs.familyAddForm.validate((valid) => {
                     if (valid) {
                         post({url: '/wang/add', data: this.familyAddForm}).then(callback => {
@@ -142,7 +147,6 @@
                 this.familyAddForm.relationId = null;
                 get({url: '/wang/findBySeniority/' + seniority}).then(callback => {
                     if (callback.flag === 'success') {
-                        console.info('seniority ' + seniority + JSON.stringify(callback.data));
                         this.initData.relationFamily = callback.data;
                     } else {
                         this.$Message.error(callback.message);

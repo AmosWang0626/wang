@@ -1,8 +1,8 @@
 package com.genealogy.wang.web.controller;
 
 import com.genealogy.wang.common.response.GenericResponse;
-import com.genealogy.wang.core.business.PersonBusiness;
-import com.genealogy.wang.dao.entity.PersonEntity;
+import com.genealogy.wang.core.business.FamilyBusiness;
+import com.genealogy.wang.dao.entity.FamilyEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("wang")
-public class PersonController {
+public class FamilyController {
 
     /**
      * 功能点:
@@ -21,21 +21,21 @@ public class PersonController {
      */
 
     @Resource
-    private PersonBusiness personBusiness;
+    private FamilyBusiness familyBusiness;
 
     @PostMapping("add")
-    public GenericResponse add(@RequestBody PersonEntity personEntity) {
-        return personBusiness.addPerson(personEntity);
+    public GenericResponse add(@RequestBody FamilyEntity familyEntity) {
+        return familyBusiness.addPerson(familyEntity);
     }
 
     @GetMapping("findBySeniority/{seniority}")
     public GenericResponse findBySeniority(@PathVariable("seniority") Integer seniority) {
-        return personBusiness.findBySeniority(seniority);
+        return familyBusiness.findBySeniority(seniority);
     }
 
     @GetMapping("findByName/{name}")
     public GenericResponse findBySeniority(@PathVariable("name") String name) {
-        return personBusiness.findByName(name);
+        return familyBusiness.findByName(name);
     }
 
 }

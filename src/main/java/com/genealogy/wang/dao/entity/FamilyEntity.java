@@ -11,8 +11,8 @@ import java.util.Date;
  * @author daoyuan
  */
 @Data
-@Entity(name = "person")
-public class PersonEntity {
+@Entity(name = "family")
+public class FamilyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,10 +56,10 @@ public class PersonEntity {
      */
     private Date createTime;
 
-    public PersonEntity() {
+    public FamilyEntity() {
     }
 
-    public PersonEntity(String name, GenderEnum gender, Integer seniority, RelationEnum relation) {
+    public FamilyEntity(String name, GenderEnum gender, Integer seniority, RelationEnum relation) {
         this.name = name;
         this.gender = gender;
         this.seniority = seniority;

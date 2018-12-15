@@ -4,10 +4,10 @@ import com.genealogy.wang.common.enums.GenderEnum;
 import com.genealogy.wang.common.enums.RelationEnum;
 import com.genealogy.wang.common.response.GenericResponse;
 import com.genealogy.wang.common.util.Mapping;
-import com.genealogy.wang.core.business.PersonBusiness;
-import com.genealogy.wang.core.service.PersonService;
-import com.genealogy.wang.dao.entity.PersonEntity;
-import com.genealogy.wang.dao.mapper.PersonMapper;
+import com.genealogy.wang.core.business.FamilyBusiness;
+import com.genealogy.wang.core.service.FamilyService;
+import com.genealogy.wang.dao.entity.FamilyEntity;
+import com.genealogy.wang.dao.mapper.FamilyMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,35 +27,35 @@ import java.util.List;
  * @date 2018/12/12
  */
 @Component("personBusiness")
-public class PersonBusinessImpl implements PersonBusiness {
+public class FamilyBusinessImpl implements FamilyBusiness {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonBusinessImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FamilyBusinessImpl.class);
 
     @Resource
-    private PersonMapper personMapper;
+    private FamilyMapper familyMapper;
     @Resource
-    private PersonService personService;
+    private FamilyService familyService;
 
     @Override
-    public GenericResponse addPerson(PersonEntity personEntity) {
-        if (personEntity == null) {
+    public GenericResponse addPerson(FamilyEntity familyEntity) {
+        if (familyEntity == null) {
             return GenericResponse.ERROR;
         }
         // set relation id
-        if (RelationEnum.ROOT.equals(personEntity.getRelation())) {
-            personEntity.setRelationId(0L);
+        if (RelationEnum.ROOT.equals(familyEntity.getRelation())) {
+            familyEntity.setRelationId(0L);
         } else {
-            if (personEntity.getRelationId() == null) {
+            if (familyEntity.getRelationId() == null) {
                 return GenericResponse.ERROR;
             }
         }
         // insert person
-        personEntity.setCreateTime(new Date());
-        personEntity = personService.addPerson(personEntity);
-        if (personEntity == null) {
+        familyEntity.setCreateTime(new Date());
+        familyEntity = familyService.addPerson(familyEntity);
+        if (familyEntity == null) {
             return GenericResponse.ERROR;
         }
-        LOGGER.info("保存成功! 家人ID " + personEntity.getId());
+        LOGGER.info("保存成功! 家人ID " + familyEntity.getId());
         return GenericResponse.SUCCESS;
     }
 
@@ -64,7 +64,7 @@ public class PersonBusinessImpl implements PersonBusiness {
         if (seniority == null) {
             return GenericResponse.ERROR;
         }
-        List<PersonEntity> personEntities = personMapper.findBySeniorityAndGender(seniority, GenderEnum.MEN);
+        List<FamilyEntity> personEntities = familyMapper.findBySeniorityAndGender(seniority, GenderEnum.MEN);
         if (CollectionUtils.isEmpty(personEntities)) {
             return GenericResponse.SUCCESS;
         }
@@ -79,7 +79,7 @@ public class PersonBusinessImpl implements PersonBusiness {
         if (StringUtils.isBlank(name)) {
             return GenericResponse.ERROR;
         }
-        return new GenericResponse<>(personMapper.findByNameRegexp(name));
+        return new GenericResponse<>(familyMapper.findByNameRegexp(name));
     }
 
 }

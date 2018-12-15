@@ -1,6 +1,6 @@
 package com.genealogy.wang.core.service;
 
-import com.genealogy.wang.dao.entity.PersonEntity;
+import com.genealogy.wang.dao.entity.FamilyEntity;
 
 /**
  * PROJECT: genealogy
@@ -9,14 +9,14 @@ import com.genealogy.wang.dao.entity.PersonEntity;
  * @author Daoyuan
  * @date 2018/11/1
  */
-public interface PersonService {
+public interface FamilyService {
 
     /**
      * 添加家人
      *
-     * @param personEntity personEntity
+     * @param familyEntity familyEntity
      * @return 添加成功与否
      */
-    PersonEntity addPerson(PersonEntity personEntity);
+    FamilyEntity addPerson(FamilyEntity familyEntity);
 
 }

@@ -1,8 +1,8 @@
 package com.genealogy.wang.core.service.impl;
 
-import com.genealogy.wang.core.service.PersonService;
-import com.genealogy.wang.dao.entity.PersonEntity;
-import com.genealogy.wang.dao.mapper.PersonMapper;
+import com.genealogy.wang.core.service.FamilyService;
+import com.genealogy.wang.dao.entity.FamilyEntity;
+import com.genealogy.wang.dao.mapper.FamilyMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,25 +18,25 @@ import javax.annotation.Resource;
  * @date 2018/11/1
  */
 @Service("personService")
-public class PersonServiceImpl implements PersonService {
+public class FamilyServiceImpl implements FamilyService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FamilyServiceImpl.class);
 
     @Resource
-    private PersonMapper personMapper;
+    private FamilyMapper familyMapper;
 
     @Override
-    public PersonEntity addPerson(PersonEntity personEntity) {
-        if (StringUtils.isBlank(personEntity.getName())) {
+    public FamilyEntity addPerson(FamilyEntity familyEntity) {
+        if (StringUtils.isBlank(familyEntity.getName())) {
             LOGGER.error("信息错误: 名字不能为 null");
             return null;
         }
-        if (personEntity.getGender() == null) {
+        if (familyEntity.getGender() == null) {
             LOGGER.error("信息错误: 性别不能为 null");
             return null;
         }
 
-        return personMapper.save(personEntity);
+        return familyMapper.save(familyEntity);
     }
 
 }

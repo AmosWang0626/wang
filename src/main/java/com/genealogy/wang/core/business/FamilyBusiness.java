@@ -1,7 +1,7 @@
 package com.genealogy.wang.core.business;
 
 import com.genealogy.wang.common.response.GenericResponse;
-import com.genealogy.wang.dao.entity.PersonEntity;
+import com.genealogy.wang.dao.entity.FamilyEntity;
 
 /**
  * PROJECT: wang
@@ -10,15 +10,15 @@ import com.genealogy.wang.dao.entity.PersonEntity;
  * @author Daoyuan
  * @date 2018/12/12
  */
-public interface PersonBusiness {
+public interface FamilyBusiness {
 
     /**
      * 添加家人
      *
-     * @param personEntity PersonEntity
+     * @param familyEntity FamilyEntity
      * @return 通用response
      */
-    GenericResponse addPerson(PersonEntity personEntity);
+    GenericResponse addPerson(FamilyEntity familyEntity);
 
     /**
      * 根据辈分获取家人[only man]
