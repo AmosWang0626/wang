@@ -1,0 +1,21 @@
+.layout {
+    border: 1px solid #d7dde4;
+    background: #ffffff;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px;
+    min-height: 600px;
+}
+
+.content-show {
+    padding: 20px;
+    background: #ffffff;
+}
+
+.content {
+    padding: 20px;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+}

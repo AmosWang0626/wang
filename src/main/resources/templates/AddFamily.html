@@ -8,57 +8,83 @@
     <script type="text/javascript" src="/static/iview.min.js"></script>
     <script type="text/javascript" src="/static/vue-router.js"></script>
     <script type="text/javascript" src="/static/axios.min.js"></script>
-    <script type="text/javascript" src="/static/request.js"></script>
+    <script type="text/javascript" src="/static/wang-request.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/wang-style.css"/>
 </head>
 <body>
-<div id="app" style="display: flex; justify-content: center;">
-    <i-form ref="familyAddForm" :model="familyAddForm" :rules="familyAddRule" :label-width="100"
-            style="width: 300px; margin: 50px;">
-        <form-item><h1 style="text-align: center">{{ title }}</h1></form-item>
-        <form-item label="名字" prop="name">
-            <i-input v-model="familyAddForm.name" placeholder="请输入名字" width="300px"></i-input>
-        </form-item>
-        <form-item label="性别" prop="gender">
-            <i-select v-model="familyAddForm.gender" placeholder="请输入性别" width="300px">
-                <i-option v-for="item in initData.genders"
-                          :value="item.key" :key="item.key">{{ item.value }}
-                </i-option>
-            </i-select>
-        </form-item>
-        <form-item label="本人辈分" prop="seniority">
-            <input-number v-model="familyAddForm.seniority" :editable="false" :min="1" width="300px">
-            </input-number>
-        </form-item>
-        <form-item label="关联人辈分">
-            <input-number v-on:on-change="relationPerson" :editable="false" :min="1" width="300px"></input-number>
-        </form-item>
-        <form-item label="关联人名字" prop="relationId">
-            <i-select v-model="familyAddForm.relationId" placeholder="请输入关联人名字" width="300px">
-                <i-option v-for="item in initData.relationFamily"
-                          :value="item.key" :key="item.key">{{ item.value }}
-                </i-option>
-            </i-select>
-        </form-item>
-        <form-item label="关联关系" prop="relation">
-            <i-select v-model="familyAddForm.relation" placeholder="请输入与关联人关系" width="300px">
-                <i-option v-for="item in initData.relations"
-                          :value="item.key" :key="item.key">{{ item.value }}
-                </i-option>
-            </i-select>
-        </form-item>
-        <form-item label="辈分中排行">
-            <input-number v-model="familyAddForm.ranking" :editable="false" :min="1" width="300px"></input-number>
-        </form-item>
-        <form-item label="生日">
-            <date-picker v-model="familyAddForm.born" type="date" style="width: 200px"
-                         format="yyyy年MM月dd日" placeholder="可输入【例如：19960511】">
-            </date-picker>
-        </form-item>
-        <form-item style="text-align: center">
-            <i-button type="primary" v-on:click="submit">添加</i-button>
-            <i-button type="warning" v-on:click="reset" style="margin-left: 50px">重置</i-button>
-        </form-item>
-    </i-form>
+<div id="app">
+    <div class="layout">
+        <layout>
+            <sider :style="{background: '#fff'}">
+                <i-menu active-name="1" theme="light" width="auto">
+                    <menu-item name="1">
+                        <icon type="ios-navigate"></icon>
+                        信息展示
+                    </menu-item>
+                    <menu-item name="2">
+                        <icon type="ios-keypad"></icon>
+                        信息录入
+                    </menu-item>
+                </i-menu>
+            </sider>
+            <layout>
+                <header><h1 style="text-align: center; padding: 10px; background: #ffffff">{{ title }}</h1></header>
+                <div class="content">
+                    <content>
+                        <i-form ref="familyAddForm" :model="familyAddForm"
+                                :rules="familyAddRule" :label-width="100" style="width: 300px;">
+                            <form-item label="名字" prop="name">
+                                <i-input v-model="familyAddForm.name" placeholder="请输入名字" width="300px"></i-input>
+                            </form-item>
+                            <form-item label="性别" prop="gender">
+                                <i-select v-model="familyAddForm.gender" placeholder="请输入性别" width="300px">
+                                    <i-option v-for="item in initData.genders"
+                                              :value="item.key" :key="item.key">{{ item.value }}
+                                    </i-option>
+                                </i-select>
+                            </form-item>
+                            <form-item label="本人辈分" prop="seniority">
+                                <input-number v-model="familyAddForm.seniority" :editable="false" :min="1"
+                                              width="300px">
+                                </input-number>
+                            </form-item>
+                            <form-item label="关联人辈分">
+                                <input-number v-on:on-change="relationPerson" :editable="false" :min="1"
+                                              width="300px"></input-number>
+                            </form-item>
+                            <form-item label="关联人名字" prop="relationId">
+                                <i-select v-model="familyAddForm.relationId" placeholder="请输入关联人名字" width="300px">
+                                    <i-option v-for="item in initData.relationFamily"
+                                              :value="item.key" :key="item.key">{{ item.value }}
+                                    </i-option>
+                                </i-select>
+                            </form-item>
+                            <form-item label="关联关系" prop="relation">
+                                <i-select v-model="familyAddForm.relation" placeholder="请输入与关联人关系" width="300px">
+                                    <i-option v-for="item in initData.relations"
+                                              :value="item.key" :key="item.key">{{ item.value }}
+                                    </i-option>
+                                </i-select>
+                            </form-item>
+                            <form-item label="辈分中排行">
+                                <input-number v-model="familyAddForm.ranking" :editable="false" :min="1"
+                                              width="300px"></input-number>
+                            </form-item>
+                            <form-item label="生日">
+                                <date-picker v-model="familyAddForm.born" type="date" style="width: 200px"
+                                             format="yyyy年MM月dd日" placeholder="可输入【例如：19960511】">
+                                </date-picker>
+                            </form-item>
+                            <form-item style="text-align: center">
+                                <i-button type="primary" v-on:click="submit">添加</i-button>
+                                <i-button type="warning" v-on:click="reset" style="margin-left: 50px">重置</i-button>
+                            </form-item>
+                        </i-form>
+                    </content>
+                </div>
+            </layout>
+        </layout>
+    </div>
 </div>
 <script>
     new Vue({

@@ -38,4 +38,9 @@ public class FamilyController {
         return familyBusiness.findByName(name);
     }
 
+    @GetMapping("familyInfo/{page}/{size}")
+    public GenericResponse allFamilyInfo(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+        return familyBusiness.allFamilyInfo(page, size);
+    }
+
 }

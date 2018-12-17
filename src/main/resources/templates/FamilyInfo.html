@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>信息展示</title>
+    <link rel="stylesheet" type="text/css" href="/static/iview.css"/>
+    <script type="text/javascript" src="/static/vue.min.js"></script>
+    <script type="text/javascript" src="/static/iview.min.js"></script>
+    <script type="text/javascript" src="/static/vue-router.js"></script>
+    <script type="text/javascript" src="/static/axios.min.js"></script>
+    <script type="text/javascript" src="/static/wang-request.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/wang-style.css"/>
+</head>
+<body>
+<div id="app">
+    <div class="layout">
+        <layout>
+            <sider :style="{background: '#fff'}">
+                <i-menu active-name="1" theme="light" width="auto">
+                    <menu-item name="1">
+                        <icon type="ios-navigate"></icon>
+                        信息展示
+                    </menu-item>
+                    <menu-item name="2">
+                        <icon type="ios-keypad"></icon>
+                        信息录入
+                    </menu-item>
+                </i-menu>
+            </sider>
+            <layout>
+                <header><h1 style="text-align: center; padding: 10px; background: #ffffff">{{ title }}</h1></header>
+                <div class="content-show">
+                    <content>
+                        <i-table border :columns="columns" :data="familyData"></i-table>
+                        <page :total="familyTotal" :page-size-opts="pageSizeOpts" :page-size="pageSize"
+                              v-on:on-change="pageChange" v-on:on-page-size-change="pageSizeChange"
+                              show-total show-sizer :style="{margin: '20px', textAlign: 'center'}"></page>
+                    </content>
+                </div>
+            </layout>
+        </layout>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: '信息展示',
+            page: 0,
+            pageSize: 6,
+            pageSizeOpts: [6, 10, 12],
+            columns: [
+                {
+                    title: 'ID',
+                    key: 'id'
+                },
+                {
+                    title: '名字',
+                    key: 'name'
+                },
+                {
+                    title: '性别',
+                    key: 'genderDesc'
+                },
+                {
+                    title: '关联人',
+                    key: 'relationName'
+                },
+                {
+                    title: '关系',
+                    key: 'relationDesc'
+                },
+                {
+                    title: '排行',
+                    key: 'ranking'
+                },
+                {
+                    title: '辈分',
+                    key: 'seniority',
+                    filters: [
+                        {
+                            label: '第 1 辈',
+                            value: 1
+                        },
+                        {
+                            label: '第 2 辈',
+                            value: 2
+                        },
+                        {
+                            label: '第 3 辈',
+                            value: 3
+                        },
+                        {
+                            label: '第 4 辈',
+                            value: 4
+                        },
+                        {
+                            label: '第 5 辈',
+                            value: 5
+                        }
+                    ],
+                    filterMultiple: false,
+                    filterMethod(value, row) {
+                        return row.seniority === value;
+                    }
+                }
+            ],
+            familyData: [],
+            familyTotal: 0,
+        },
+        methods: {
+            showData(page, size) {
+                get({url: '/wang/familyInfo/' + page + '/' + size}).then(callback => {
+                    if (callback.flag === 'success') {
+                        this.$data.familyData = callback.data.content;
+                        this.$data.familyTotal = callback.data.total;
+                    } else {
+                        this.$Message.error(callback.message);
+                    }
+                })
+            },
+            pageChange(page) {
+                this.page = page;
+                this.showData(page - 1, this.pageSize);
+            },
+            pageSizeChange(pageSize) {
+                this.page = 0;
+                this.pageSize = pageSize;
+                this.showData(this.page, this.pageSize);
+            }
+        },
+        beforeMount: function () {
+            this.showData(this.page, this.pageSize);
+        }
+    });
+</script>
+</body>
+</html>

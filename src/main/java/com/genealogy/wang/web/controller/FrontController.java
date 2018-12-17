@@ -28,6 +28,11 @@ public class FrontController {
         return "AddFamily";
     }
 
+    @GetMapping("info")
+    public String info() {
+        return "FamilyInfo";
+    }
+
     @GetMapping("allRelation")
     @ResponseBody
     public GenericResponse allRelation() {

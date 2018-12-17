@@ -2,6 +2,7 @@ package com.genealogy.wang.core.business;
 
 import com.genealogy.wang.common.response.GenericResponse;
 import com.genealogy.wang.dao.entity.FamilyEntity;
+import com.genealogy.wang.web.response.PageVO;
 
 /**
  * PROJECT: wang
@@ -35,5 +36,14 @@ public interface FamilyBusiness {
      * @return 通用response
      */
     GenericResponse findByName(String name);
+
+    /**
+     * 根据条件查询所有人信息
+     *
+     * @param page page
+     * @param size size
+     * @return List<FamilyInfoRequest>
+     */
+    GenericResponse<PageVO> allFamilyInfo(Integer page, Integer size);
 
 }

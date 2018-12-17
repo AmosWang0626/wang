@@ -2,6 +2,8 @@ package com.genealogy.wang.dao.mapper;
 
 import com.genealogy.wang.common.enums.GenderEnum;
 import com.genealogy.wang.dao.entity.FamilyEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -42,8 +44,26 @@ public interface FamilyMapper extends CrudRepository<FamilyEntity, Long> {
      */
     List<FamilyEntity> findAllByRelationId(Long id);
 
-    /*
-     * 常用sql
-     * @Query(value = "select * from Person p where seniority = ?1 and gender = ?2", nativeQuery = true)
+    /**
+     * 分页
+     *
+     * @param pageable pageable
+     * @return List<FamilyEntity>
      */
+    @Query(value = "SELECT * FROM #{#entityName} order by SENIORITY, RANKING",
+            countQuery = "SELECT count(*) FROM #{#entityName}",
+            nativeQuery = true)
+    Page<FamilyEntity> findAll(Pageable pageable);
+
+    /**
+     * 分页 by 辈分
+     *
+     * @param seniority 辈分
+     * @param pageable  pageable
+     * @return List<FamilyEntity>
+     */
+    @Query(value = "SELECT * FROM #{#entityName} WHERE SENIORITY = ?1 order by RANKING",
+            countQuery = "SELECT count(*) FROM #{#entityName} WHERE SENIORITY = ?1",
+            nativeQuery = true)
+    Page<FamilyEntity> findBySeniority(Integer seniority, Pageable pageable);
 }
